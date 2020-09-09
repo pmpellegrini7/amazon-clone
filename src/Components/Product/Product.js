@@ -5,8 +5,6 @@ import { useStateValue } from "../../StateProvider";
 function Product({ id, title, image, price, rating }) {
   const [{ basket }, dispatch] = useStateValue();
 
-  console.log("basket --> ", basket);
-
   // Envio el producto al dataLayer
   const addToBasket = () => {
     // Dispatch is like a trigger
