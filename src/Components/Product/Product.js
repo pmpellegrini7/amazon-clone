@@ -1,23 +1,29 @@
 import React from "react";
 import "./Product.css";
 import { useStateValue } from "../../StateProvider";
+import { useHistory } from "react-router-dom";
 
 function Product({ id, title, image, price, rating }) {
-  const [{ basket }, dispatch] = useStateValue();
+  const history = useHistory();
+  const [{ basket, user }, dispatch] = useStateValue();
 
   // Envio el producto al dataLayer
   const addToBasket = () => {
     // Dispatch is like a trigger
-    dispatch({
-      type: "ADD_TO_BASKET",
-      item: {
-        id: id,
-        title: title,
-        image: image,
-        price: price,
-        rating: rating,
-      },
-    });
+    if (user) {
+      dispatch({
+        type: "ADD_TO_BASKET",
+        item: {
+          id: id,
+          title: title,
+          image: image,
+          price: price,
+          rating: rating,
+        },
+      });
+    } else {
+      history.push("/login");
+    }
   };
 
   return (
