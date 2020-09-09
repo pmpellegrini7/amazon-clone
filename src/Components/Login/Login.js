@@ -25,20 +25,6 @@ function Login() {
       .catch((error) => alert(error.message));
   };
 
-  const register = (e) => {
-    e.preventDefault();
-
-    auth
-      .createUserWithEmailAndPassword(user.email, user.password)
-      .then((auth) => {
-        console.log(auth);
-        if (auth) {
-          history.push("/");
-        }
-      })
-      .catch((error) => alert(error.message));
-  };
-
   return (
     <div className="login">
       <Link to="/">
@@ -77,9 +63,11 @@ function Login() {
           Notice.
         </p>
 
-        <button className="login__registerButton" onClick={register}>
-          Create your Amazon Account
-        </button>
+        <Link to="register">
+          <button className="login__registerButton">
+            Create your Amazon Account
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -6,12 +6,13 @@ import Header from "./Components/Header/Header";
 import Home from "./Components/Home/Home";
 import Checkout from "./Components/Checkout/Checkout";
 import Login from "./Components/Login/Login";
+import Register from "./Components/Register/Register";
 
-import { auth } from "./services/firebase";
 import { useStateValue } from "./StateProvider";
+import { auth } from "./services/firebase";
 
 function App() {
-  const [{}, dispatch] = useStateValue();
+  const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
@@ -29,7 +30,7 @@ function App() {
         });
       }
     });
-  }, []);
+  }, [user]);
 
   return (
     <div className="App">
@@ -37,6 +38,9 @@ function App() {
         <Switch>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
           </Route>
           <Route path="/checkout">
             <Header />
