@@ -14,10 +14,10 @@ function Home() {
         <div className="home__row">
           <Product
             id={0}
-            title="The Lean Startup"
-            price={29.99}
-            image="https://m.media-amazon.com/images/I/41+5Z1FRiZL.jpg"
-            rating={4}
+            title="The Road to React: Your journey to master plain yet pragmatic React.js"
+            price={39.99}
+            image="https://m.media-amazon.com/images/I/31apmbgpwkL.jpg"
+            rating={5}
           />
           <Product
             id={1}
