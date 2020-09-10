@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "./Login.css";
+import PulseLoader from "react-spinners/PulseLoader";
 import { Link, useHistory } from "react-router-dom";
 import { auth } from "../../services/firebase";
 
 function Login() {
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({ email: "", password: "" });
 
   const handleOnChange = (e) => {
@@ -16,13 +18,14 @@ function Login() {
 
   const signIn = (e) => {
     e.preventDefault();
-
+    setLoading(true);
     auth
       .signInWithEmailAndPassword(user.email, user.password)
       .then((auth) => {
         history.push("/");
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => alert(error.message))
+      .then(() => setLoading(false));
   };
 
   return (
@@ -55,7 +58,13 @@ function Login() {
             onChange={handleOnChange}
           />
 
-          <button className="login__signInButton">Sign In</button>
+          <button className="login__signInButton">
+            {loading ? (
+              <PulseLoader size={8} color={"black"} loading={loading} />
+            ) : (
+              "Sign In"
+            )}
+          </button>
         </form>
 
         <p>
@@ -63,11 +72,14 @@ function Login() {
           Notice.
         </p>
 
-        <Link to="register">
-          <button className="login__registerButton">
-            Create your Amazon Account
-          </button>
-        </Link>
+        <div className="login__newUser">
+          <p>¿Don't you have an account?</p>
+          <Link to="register">
+            <button className="login__registerButton">
+              Create your Amazon Account
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -34,8 +34,16 @@
 .register__container > form > input {
   height: 30px;
   margin-bottom: 10px;
+  padding-left: 10px;
+  border-radius: 3px;
+  border: 1px solid grey;
   background-color: white;
-  width: 98%;
+  width: 95%;
+}
+
+.register__container > form > input:focus {
+  border: 2px solid #f0c14b;
+  outline: none;
 }
 
 .register__container > form > button {
@@ -44,7 +52,7 @@
   height: 30px;
   border: 1px solid;
   margin-top: 10px;
-  background: #f0c14b;
+  background-image: linear-gradient(white, #f0c14b, #f0c14b);
   border-color: #a88734 #9c7e31 #846a29;
 }
 

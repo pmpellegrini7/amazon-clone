@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "./Register.css";
+import PulseLoader from "react-spinners/PulseLoader";
 import { Link, useHistory } from "react-router-dom";
 
 import { auth } from "../../services/firebase";
 
 function Register() {
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({ name: "", email: "", password: "" });
 
   const handleOnChange = (e) => {
@@ -17,6 +19,7 @@ function Register() {
 
   const register = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     auth
       .createUserWithEmailAndPassword(user.email, user.password)
@@ -31,7 +34,8 @@ function Register() {
           history.push("/");
         }, 1500);
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => alert(error.message))
+      .then(() => setLoading(true));
   };
 
   return (
@@ -70,7 +74,13 @@ function Register() {
             onChange={handleOnChange}
           />
 
-          <button onClick={register}>Create account on Amazon</button>
+          <button onClick={register}>
+            {loading ? (
+              <PulseLoader size={8} color={"black"} loading={loading} />
+            ) : (
+              "Create account on Amazon"
+            )}
+          </button>
         </form>
 
         <p>
