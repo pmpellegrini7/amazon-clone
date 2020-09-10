@@ -5,8 +5,25 @@ import Subtotal from "../Subtotal/Subtotal";
 import BasketItem from "../BasketItem/BasketItem";
 import { useStateValue } from "../../StateProvider";
 
+import { AnimatedList } from "react-animated-list";
+
 function Checkout() {
   const [{ basket, user }, dispatch] = useStateValue();
+
+  const renderBasketItems = () => {
+    return basket.map((item) => {
+      return (
+        <BasketItem
+          key={item.title}
+          id={item.id}
+          title={item.title}
+          image={item.image}
+          price={item.price}
+          rating={item.rating}
+        />
+      );
+    });
+  };
 
   return (
     <div className="checkout">
@@ -19,15 +36,7 @@ function Checkout() {
         <div>
           <h3>{user ? "Hey, " + user.displayName : ""}</h3>
           <h2 className="checkout__title">Your Shopping Basket</h2>
-          {basket.map((item) => (
-            <BasketItem
-              id={item.id}
-              title={item.title}
-              image={item.image}
-              price={item.price}
-              rating={item.rating}
-            />
-          ))}
+          <AnimatedList animation={"zoom"}>{renderBasketItems()}</AnimatedList>
         </div>
       </div>
 
